@@ -17,6 +17,8 @@ BUILD_DIR = build/
 SRCFILES := celox/src/entry.asm celox/src/celox.c
 OBJFILES := $(patsubst celox/src/%.asm,$(BUILD_DIR)%.asm.o,$(patsubst celox/src/%.c,$(BUILD_DIR)%.c.o,$(SRCFILES)))
 
+QEMU_SYSTEM = qemu-system-i386
+
 # ANSI color codes
 COL_BLUE = \033[1;34m
 COL_GREEN = \033[1;32m
@@ -31,6 +33,10 @@ kernel: $(OBJFILES)
 	@$(LD) $(LDFLAGS) $^ -o $(BIN_OUTPUT)
 	@echo -e "$(COL_GREEN)Creating a bootable image...$(COL_RESET)"
 	@$(GRUB_MKRESCUE) -o $(ISO_OUTPUT) $(DISK_DIR)
+
+.PHONY: run
+run: $(ISO_OUTPUT)
+	$(QEMU_SYSTEM) -cdrom $(ISO_OUTPUT) 
 
 $(BUILD_DIR)%.c.o: celox/src/%.c
 	@echo -e "$(COL_YELLOW)Building $@$(COL_RESET)"

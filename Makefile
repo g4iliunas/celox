@@ -14,7 +14,7 @@ BIN_OUTPUT = $(DISK_DIR)boot/kernel.bin
 ISO_OUTPUT = celox/bin/celox.iso
 
 BUILD_DIR = build/
-SRCFILES := celox/src/entry.asm celox/src/celox.c
+SRCFILES := celox/src/multiboot2.asm celox/src/entry.asm celox/src/celox.c
 OBJFILES := $(patsubst celox/src/%.asm,$(BUILD_DIR)%.asm.o,$(patsubst celox/src/%.c,$(BUILD_DIR)%.c.o,$(SRCFILES)))
 
 QEMU_SYSTEM = qemu-system-i386

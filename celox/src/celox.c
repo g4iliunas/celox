@@ -1,1 +1,5 @@
-void __celox_main(void) {}
+void __celox_main(void)
+{
+    for (;;)
+        ;
+}

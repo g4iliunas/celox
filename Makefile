@@ -14,8 +14,10 @@ BIN_OUTPUT = $(DISK_DIR)boot/kernel.bin
 ISO_OUTPUT = celox/bin/celox.iso
 
 BUILD_DIR = build/
-SRCFILES := celox/src/multiboot2.asm celox/src/entry.asm celox/src/celox.c
-OBJFILES := $(patsubst celox/src/%.asm,$(BUILD_DIR)%.asm.o,$(patsubst celox/src/%.c,$(BUILD_DIR)%.c.o,$(SRCFILES)))
+SRCFILES := celox/src/multiboot2.asm \
+			celox/celox.c \
+			celox/src/entry.asm
+OBJFILES := $(patsubst celox/src/%.asm,$(BUILD_DIR)%.asm.o,$(patsubst celox/%.c,$(BUILD_DIR)%.c.o,$(patsubst celox/src/%.c,$(BUILD_DIR)%.c.o,$(SRCFILES))))
 
 QEMU_SYSTEM = qemu-system-i386
 
@@ -38,13 +40,17 @@ kernel: $(OBJFILES)
 run: $(ISO_OUTPUT)
 	$(QEMU_SYSTEM) -cdrom $(ISO_OUTPUT) 
 
-$(BUILD_DIR)%.c.o: celox/src/%.c
-	@echo -e "$(COL_YELLOW)Building $@$(COL_RESET)"
-	@$(CC) $(CFLAGS) -c $< -o $@
-
 $(BUILD_DIR)%.asm.o: celox/src/%.asm
 	@echo -e "$(COL_YELLOW)Building $@$(COL_RESET)"
 	@$(ASSEMBLER) $(ASMFLAGS) $< -o $@
+
+$(BUILD_DIR)%.c.o: celox/%.c
+	@echo -e "$(COL_YELLOW)Building $@$(COL_RESET)"
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(BUILD_DIR)%.c.o: celox/src/%.c
+	@echo -e "$(COL_YELLOW)Building $@$(COL_RESET)"
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 .PHONY: clean
 clean: $(BUILD_DIR)

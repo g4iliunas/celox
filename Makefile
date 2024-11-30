@@ -1,5 +1,5 @@
 CC = clang
-CFLAGS = -m32 -ffreestanding -nostdlib
+CFLAGS = -m32 -ffreestanding -nostdlib -Icelox/include
 
 ASSEMBLER = nasm
 ASMFLAGS = -felf32
@@ -16,7 +16,8 @@ ISO_OUTPUT = celox/bin/celox.iso
 BUILD_DIR = build/
 SRCFILES := celox/src/multiboot2.asm \
 			celox/celox.c \
-			celox/src/entry.asm
+			celox/src/entry.asm \
+			celox/src/vga.c 
 OBJFILES := $(patsubst celox/src/%.asm,$(BUILD_DIR)%.asm.o,$(patsubst celox/%.c,$(BUILD_DIR)%.c.o,$(patsubst celox/src/%.c,$(BUILD_DIR)%.c.o,$(SRCFILES))))
 
 QEMU_SYSTEM = qemu-system-i386

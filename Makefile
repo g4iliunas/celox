@@ -7,7 +7,7 @@ ASMFLAGS = -felf32
 LD = ld
 LDFLAGS = -Tlinker.ld -melf_i386
 
-GRUB_MKRESCUE = grub2-mkrescue
+GRUB_MKRESCUE = grub-mkrescue
 
 DISK_DIR = disk/
 BIN_OUTPUT = $(DISK_DIR)boot/kernel.bin 

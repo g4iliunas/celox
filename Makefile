@@ -11,7 +11,7 @@ GRUB_MKRESCUE = grub-mkrescue
 
 DISK_DIR = disk/
 BIN_OUTPUT = $(DISK_DIR)boot/kernel.bin 
-ISO_OUTPUT = celox/bin/celox.iso
+ISO_OUTPUT = bin/celox.iso
 
 BUILD_DIR = build/
 SRCFILES := celox/src/multiboot2.asm \

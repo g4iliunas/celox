@@ -1,5 +1,5 @@
-#include <vga.h>
 #include <types.h>
+#include <vga.h>
 
 void __celox_main(void)
 {

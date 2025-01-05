@@ -7,16 +7,23 @@ Celox is a hobbyist kernel, focused on being fast and speedy.
 - mtools
 - qemu-system
 - nasm
-- GNU Make 
+- CMake
 
 ## How to build
 ```sh
 git clone https://github.com/g4iliunas/celox.git
 cd celox
-mkdir build bin
+mkdir build && cd build
+cmake ..
 make
 ```
 The produced ISO should be generated in `bin` directory.
+
+## How to run
+It will boot the ISO from `bin` directory
+```sh
+make run
+```
 
 ## TODO
 - [ ] Proper logging (serial with `DEBUG` preprocessor)

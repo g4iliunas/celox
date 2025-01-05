@@ -7,7 +7,8 @@ enable_language(ASM_NASM)
 
 set(DISK_DIR ${CMAKE_SOURCE_DIR}/disk)
 set(BIN_OUTPUT ${DISK_DIR}/boot/kernel)
-set(ISO_OUTPUT ${CMAKE_SOURCE_DIR}/bin/celox.iso)
+set(BIN_DIR ${CMAKE_SOURCE_DIR}/bin)
+set(ISO_OUTPUT ${BIN_DIR}/celox.iso)
 
 set(CMAKE_C_FLAGS "-m32 -ffreestanding -nostdlib -I${CMAKE_SOURCE_DIR}/celox/include")
 
@@ -34,6 +35,7 @@ target_link_options(kernel PRIVATE
     LINKER:-melf_i386
 )
 
+file(MAKE_DIRECTORY ${BIN_DIR})
 add_custom_command(TARGET kernel POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:kernel> ${BIN_OUTPUT}
     COMMENT "Copying kernel binary to disk/boot"
